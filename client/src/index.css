@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+@theme {
+  --color-grass-100: #99E2B4;
+  --color-grass-200: #88D4AB;
+  --color-grass-300: #78C6A3;
+  --color-grass-400: #67B99A;
+  --color-grass-500: #56AB91;
+  --color-grass-600: #469D89;
+  --color-grass-700: #358F80;
+  --color-grass-800: #248277;
+  --color-grass-900: #14746F;
+  --color-grass-950: #036666;
+}
