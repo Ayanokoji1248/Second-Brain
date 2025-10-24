@@ -1,0 +1,1 @@
+{"root":["./src/index.ts","./src/config/dbconnection.ts","./src/models/post.modet.ts","./src/models/user.model.ts","./src/utils/index.ts"],"version":"5.9.3"}
