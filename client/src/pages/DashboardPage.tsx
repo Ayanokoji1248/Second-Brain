@@ -1,17 +1,25 @@
 import { PlusCircle, Search } from 'lucide-react';
+import PostModal from '../components/PostModal';
+import { useState } from 'react';
 
 const DashboardPage = () => {
 
+    const [showModal, setShowModal] = useState(false)
 
     return (
         <div className='bg-zinc-950 w-full h-full text-white p-5'>
+
+            {showModal &&
+                <PostModal setShowModal={setShowModal} />
+            }
+
             <div className='flex items-center justify-between'>
                 <div className='flex flex-col'>
                     <h1 className='text-3xl font-bold'>Dashboard</h1>
                     <p className='text-sm text-zinc-400 font-medium'>Organize your digital knowledge</p>
                 </div>
 
-                <button className='p-2 bg-grass-600 font-medium rounded-md flex gap-2 items-center hover:bg-grass-800 transition-all duration-300 cursor-pointer'><PlusCircle size={20} />
+                <button onClick={() => setShowModal(true)} className='p-2 bg-grass-700 font-medium rounded-md flex gap-2 items-center hover:bg-grass-800 transition-all duration-300 cursor-pointer'><PlusCircle size={20} />
                     <span>Add Item</span>
                 </button>
             </div>

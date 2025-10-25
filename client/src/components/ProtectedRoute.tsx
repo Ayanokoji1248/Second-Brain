@@ -8,8 +8,8 @@ const ProtectedRoute = () => {
     const { isAuthenticated } = useAuthStore();
     const { user } = useUserStore();
 
-    if (!isAuthenticated || !user) {
-        return <Navigate to={'/login'} state={{ from: location }} />
+    if (!isAuthenticated || user == null) {
+        return <Navigate to={'/login'} replace />
     }
 
     return (

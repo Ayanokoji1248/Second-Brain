@@ -3,7 +3,7 @@ import SideBar from "../components/SideBar"
 
 const MainLayout = () => {
     return (
-        <div className="w-full h-screen flex">
+        <div className="w-full h-screen flex" id="main">
             <SideBar />
             <div className="w-[80%] h-hull">
                 <Outlet />
