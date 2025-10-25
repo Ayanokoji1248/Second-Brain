@@ -12,10 +12,9 @@ const postSchema = new Schema({
     },
     title: String, // title of post
     description: String, // description about articles
-    author_name: String,
-    type: String, // youtube twitter etc
+    type: String, // youtube twitter etc // publisher
     thumbnail: String, // thumbnail for youtube
-    content: String, // html content
+    htmlContent: String,
     tags: {
         type: [String], // user fill
         default: []
@@ -23,3 +22,5 @@ const postSchema = new Schema({
 }, { timestamps: true })
 
 const Post = model("post", postSchema);
+
+export default Post
