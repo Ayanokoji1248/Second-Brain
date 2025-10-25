@@ -4,13 +4,16 @@ import DashboardPage from "./pages/DashboardPage"
 import RegisterPage from "./pages/RegisterPage"
 import LoginPage from "./pages/LoginPage"
 import AuthLayout from "./layout/AuthLayout"
+import MainLayout from "./layout/MainLayout"
 
 const App = () => {
   return (
 
     <Routes>
       <Route path="/" element={<HomePage />} />
-      <Route path="/dashboard" element={<DashboardPage />} />
+      <Route element={<MainLayout />}>
+        <Route path="/dashboard" element={<DashboardPage />} />
+      </Route>
 
       <Route element={<AuthLayout />}>
         <Route path="/register" element={<RegisterPage />} />

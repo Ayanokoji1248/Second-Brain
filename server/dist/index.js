@@ -13,10 +13,15 @@ import express from "express";
 import dbConnect from "./config/DbConnection.js";
 import cookieParser from "cookie-parser";
 import authRouter from "./routes/auth.route.js";
+import cors from "cors";
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true
+}));
 app.use('/api/auth', authRouter);
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
