@@ -1,13 +1,16 @@
 import { PlusCircle, Search } from 'lucide-react';
 import PostModal from '../components/PostModal';
 import { useState } from 'react';
+import usePostStore from '../store/post.store';
+import PostCard from '../components/PostCard';
 
 const DashboardPage = () => {
 
     const [showModal, setShowModal] = useState(false)
+    const { posts } = usePostStore();
 
     return (
-        <div className='bg-zinc-950 w-full h-full text-white p-5'>
+        <div className='bg-zinc-950 w-full min-h-screen text-white p-5'>
 
             {showModal &&
                 <PostModal setShowModal={setShowModal} />
@@ -26,18 +29,29 @@ const DashboardPage = () => {
 
             <div className='mt-8'>
 
-                <div className="w-fit flex items-center gap-2 pl-2 border-2 border-grass-700 rounded-md focus-within:ring-1 focus-within:ring-grass-800">
+                <div className="w-fit flex items-center gap-2 pl-2 border border-grass-900 rounded-md focus-within:ring-1 focus-within:ring-grass-950">
                     <Search size={20} className='text-grass-500' />
                     <input
-                        className="w-96 p-1.5 py-2 text-sm outline-none rounded-md"
+                        className="w-72 md:w-96 p-1.5 py-2 text-sm outline-none rounded-md"
                         type="text"
                         placeholder="Search by title, tag, or content ..."
                     />
                 </div>
 
-                <div className='mt-5'>
-                    <p className='text-sm font-medium text-zinc-500 px-2'>No post yet.</p>
-                </div>
+                {posts.length == 0 &&
+                    <div className='mt-5'>
+                        <p className='text-sm font-medium text-zinc-500 px-2'>No post yet.</p>
+                    </div>
+                }
+
+                {posts.length > 0 &&
+                    <div className='mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5'>
+                        {posts.map((post) => (
+                            <PostCard {...post} />
+                        ))}
+
+                    </div>
+                }
 
             </div>
         </div>

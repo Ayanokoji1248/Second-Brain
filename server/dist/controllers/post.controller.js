@@ -25,7 +25,7 @@ export const createPost = (req, res) => __awaiter(void 0, void 0, void 0, functi
             tags,
         });
         yield post.save();
-        post.populate("user", "_id username email");
+        post.populate("user", "_id username");
         res.status(201).json({
             message: "Post Created Successfully",
             post
@@ -36,5 +36,22 @@ export const createPost = (req, res) => __awaiter(void 0, void 0, void 0, functi
         res.status(500).json({
             message: "Internal Server Error"
         });
+    }
+});
+export const getAllUserPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const userId = req.user.id;
+        const posts = yield Post.find({ user: userId }).populate("user", "_id username");
+        res.status(200).json({
+            message: "All User Posts",
+            posts
+        });
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({
+            message: "Internal Server Error"
+        });
+        return;
     }
 });
