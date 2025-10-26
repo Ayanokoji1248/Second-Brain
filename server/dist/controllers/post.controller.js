@@ -14,6 +14,9 @@ export const createPost = (req, res) => __awaiter(void 0, void 0, void 0, functi
         const { url, tags } = req.body;
         const userId = req.user.id;
         const data = yield fetchMetadata(url);
+        if (data.publisher === "X (formerly Twitter)") {
+            data.image = "https://tse2.mm.bing.net/th/id/OIP.haaoLPYGwnAxBXyelWH_VAHaEK?rs=1&pid=ImgDetMain&o=7&rm=3";
+        }
         const post = new Post({
             title: data.title,
             description: data.description,

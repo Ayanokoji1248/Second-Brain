@@ -13,6 +13,8 @@ import ProtectedRoute from "./components/ProtectedRoute"
 import useAuthStore from "./store/auth.store"
 import Lottie from "lottie-react"
 import AIBrain from "./assets/AI Brain.json"
+import VideoPage from "./pages/VideoPage"
+import TwitterPage from "./pages/TwitterPage"
 
 const App = () => {
 
@@ -61,6 +63,8 @@ const App = () => {
       <Route element={<ProtectedRoute />}>
         <Route element={<MainLayout />}>
           <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/videos" element={<VideoPage />} />
+          <Route path="/tweets" element={<TwitterPage />} />
         </Route>
       </Route>
 

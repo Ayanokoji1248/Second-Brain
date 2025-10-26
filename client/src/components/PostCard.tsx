@@ -94,7 +94,7 @@ const PostCard = (post: postProp) => {
 
                 {post.type === "X (formerly Twitter)" && (
                     <div
-                        className="text-sm text-zinc-500"
+                        className="text-sm text-zinc-500 line-clamp-5"
                         dangerouslySetInnerHTML={{ __html: post.htmlContent }}
                     />
                 )}

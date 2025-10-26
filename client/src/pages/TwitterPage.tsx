@@ -1,16 +1,18 @@
-import { PlusCircle, Search } from 'lucide-react';
-import PostModal from '../components/PostModal';
-import { useState } from 'react';
-import usePostStore from '../store/post.store';
-import PostCard from '../components/PostCard';
+import { PlusCircle, Search } from "lucide-react"
+import { useState } from "react"
+import PostModal from "../components/PostModal"
+import PostCard from "../components/PostCard";
+import usePostStore from "../store/post.store";
 
-const DashboardPage = () => {
-
-    const [showModal, setShowModal] = useState(false)
+const TwitterPage = () => {
     const { posts } = usePostStore();
 
+    const [showModal, setShowModal] = useState(false)
+
+    const filterPost = posts.filter((post) => post.type === "X (formerly Twitter)")
+
     return (
-        <div className='w-full min-h-screen text-white p-5'>
+        <div className='bg-zinc-950 w-full min-h-screen text-white p-5'>
 
             {showModal &&
                 <PostModal setShowModal={setShowModal} />
@@ -18,8 +20,8 @@ const DashboardPage = () => {
 
             <div className='flex items-center justify-between'>
                 <div className='flex flex-col'>
-                    <h1 className='text-3xl font-bold'>Dashboard</h1>
-                    <p className='text-sm text-zinc-400 font-medium'>Organize your digital knowledge</p>
+                    <h1 className='text-3xl font-bold'>Tweets</h1>
+                    <p className='text-sm text-zinc-400 font-medium'>Manage your tweets</p>
                 </div>
 
                 <button onClick={() => setShowModal(true)} className='p-2 bg-grass-700 font-medium rounded-md flex gap-2 items-center hover:bg-grass-800 transition-all duration-300 cursor-pointer'><PlusCircle size={20} />
@@ -46,7 +48,7 @@ const DashboardPage = () => {
 
                 {posts.length > 0 &&
                     <div className='mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5'>
-                        {posts.map((post) => (
+                        {filterPost.map((post) => (
                             <PostCard {...post} />
                         ))}
 
@@ -58,4 +60,4 @@ const DashboardPage = () => {
     )
 }
 
-export default DashboardPage
+export default TwitterPage

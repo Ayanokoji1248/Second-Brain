@@ -9,6 +9,11 @@ export const createPost = async (req: Request, res: Response) => {
 
         const data = await fetchMetadata(url);
 
+
+        if (data.publisher === "X (formerly Twitter)") {
+            data.image = "https://tse2.mm.bing.net/th/id/OIP.haaoLPYGwnAxBXyelWH_VAHaEK?rs=1&pid=ImgDetMain&o=7&rm=3"
+        }
+
         const post = new Post({
             title: data.title,
             description: data.description,
@@ -19,6 +24,7 @@ export const createPost = async (req: Request, res: Response) => {
             user: userId,
             tags,
         })
+
         await post.save()
         post.populate("user", "_id username");
 
