@@ -32,10 +32,10 @@ const VideoPage = () => {
 
             <div className='mt-8'>
 
-                <div className="w-fit flex items-center gap-2 pl-2 border border-grass-900 rounded-md focus-within:ring-1 focus-within:ring-grass-950">
+                <div className="w-full flex items-center gap-2 pl-2 border border-grass-900 rounded-md focus-within:ring-1 focus-within:ring-grass-950">
                     <Search size={20} className='text-grass-500' />
                     <input
-                        className="w-72 md:w-96 p-1.5 py-2 text-sm outline-none rounded-md"
+                        className="w-full p-1.5 py-2 text-sm outline-none rounded-md"
                         type="text"
                         placeholder="Search by title, tag, or content ..."
                     />

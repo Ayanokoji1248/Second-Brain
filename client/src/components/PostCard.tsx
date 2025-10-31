@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
-import { FileSymlink, MoreVertical, Share2, Trash2 } from "lucide-react";
+import { FileSymlink, MoreVertical } from "lucide-react";
 import type { postProp } from "../interfaces";
+import PostMenuModal from "./PostMenuModal";
 
 const PostCard = (post: postProp) => {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -16,6 +17,27 @@ const PostCard = (post: postProp) => {
         document.addEventListener("mousedown", handleClickOutside);
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
+
+    const badgeStyle = (type: string) => {
+        switch (type.toLowerCase()) {
+            case "medium":
+                return "bg-[#02B875] text-white";
+            case "pinterest":
+                return "bg-red-500 text-white";
+            case "notion":
+                return "bg-black text-white";
+            case "cosmos":
+                return "bg-gray-500 text-white";
+            case "youtube":
+                return "bg-red-500 text-white";
+            case "x (formerly twitter)":
+                return "bg-sky-500 text-white";
+            case "dev community":
+                return "bg-indigo-500 text-white";
+            default:
+                return "bg-gray-200 text-gray-800"; // fallback/default style
+        }
+    }
 
     return (
         <div className="bg-zinc-950 rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 cursor-pointer border border-zinc-800 relative">
@@ -34,26 +56,7 @@ const PostCard = (post: postProp) => {
 
                 {/* Dropdown Menu */}
                 {menuOpen && (
-                    <div className="absolute right-0 mt-2 w-32 bg-zinc-900 border border-zinc-800 rounded-lg shadow-lg overflow-hidden">
-                        <button
-                            className="w-full flex items-center gap-2 px-3 py-2 text-sm text-zinc-300 hover:bg-zinc-800"
-                            onClick={() => {
-                                navigator.clipboard.writeText(post.url);
-                                setMenuOpen(false);
-                            }}
-                        >
-                            <Share2 size={14} /> Share
-                        </button>
-                        <button
-                            className="w-full flex items-center gap-2 px-3 py-2 text-sm text-red-400 hover:bg-zinc-800"
-                            onClick={() => {
-                                console.log("Delete clicked for:", post._id);
-                                setMenuOpen(false);
-                            }}
-                        >
-                            <Trash2 size={14} /> Delete
-                        </button>
-                    </div>
+                    <PostMenuModal setMenuOpen={setMenuOpen} post={post} />
                 )}
             </div>
 
@@ -66,12 +69,7 @@ const PostCard = (post: postProp) => {
                 />
                 {post.type && (
                     <span
-                        className={`absolute top-2 left-2 text-xs px-2 py-1 rounded-full uppercase font-semibold ${post.type === "YouTube"
-                            ? "bg-red-500"
-                            : post.type === "X (formerly Twitter)"
-                                ? "bg-sky-500"
-                                : "bg-teal-500"
-                            }`}
+                        className={`absolute top-2 left-2 text-xs px-2 py-1 rounded-full uppercase font-semibold ${badgeStyle(post.type)}`}
                     >
                         {post.type}
                     </span>

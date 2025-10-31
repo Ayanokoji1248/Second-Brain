@@ -96,3 +96,38 @@ export const searchPost = async (req: Request, res: Response) => {
         return
     }
 }
+
+export const deletePost = async (req: Request, res: Response) => {
+    try {
+
+        const postId = req.params.id;
+        const userId = req.user.id;
+
+        if (!postId) {
+            res.status(404).json({
+                message: "Post Id Not Found"
+            })
+            return;
+        }
+
+        const post = await Post.findOneAndDelete({ _id: postId, user: userId });
+        if (!post) {
+            res.status(404).json({
+                message: "Post Not Found",
+            })
+            return
+        }
+
+        res.status(200).json({
+            message: "Post deleted successfully"
+        })
+        return
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            message: "Internal Server Error"
+        })
+        return
+    }
+}

@@ -90,3 +90,33 @@ export const searchPost = (req, res) => __awaiter(void 0, void 0, void 0, functi
         return;
     }
 });
+export const deletePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const postId = req.params.id;
+        const userId = req.user.id;
+        if (!postId) {
+            res.status(404).json({
+                message: "Post Id Not Found"
+            });
+            return;
+        }
+        const post = yield Post.findOneAndDelete({ _id: postId, user: userId });
+        if (!post) {
+            res.status(404).json({
+                message: "Post Not Found",
+            });
+            return;
+        }
+        res.status(200).json({
+            message: "Post deleted successfully"
+        });
+        return;
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({
+            message: "Internal Server Error"
+        });
+        return;
+    }
+});

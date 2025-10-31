@@ -5,6 +5,7 @@ import usePostStore from '../store/post.store';
 import PostCard from '../components/PostCard';
 import axios from 'axios';
 import { BACKEND_URL } from '../lib';
+import { Toaster } from 'react-hot-toast';
 
 const DashboardPage = () => {
 
@@ -44,6 +45,8 @@ const DashboardPage = () => {
 
     return (
         <div className='w-full min-h-screen text-white p-5'>
+
+            <Toaster />
 
             {showModal &&
                 <PostModal setShowModal={setShowModal} />

@@ -7,6 +7,7 @@ type postStoreType = {
     posts: postProp[],
     fetchPosts: () => Promise<void>
     addPost: (url: string, tags: string[]) => Promise<void>
+    deletePost: (postId: string) => Promise<void>
 }
 
 const usePostStore = create<postStoreType>((set) => ({
@@ -32,6 +33,18 @@ const usePostStore = create<postStoreType>((set) => ({
 
             set((state) => ({
                 posts: [newPost, ...state.posts]
+            }))
+
+        } catch (error) {
+            console.error(error);
+        }
+    },
+    deletePost: async (postId) => {
+        try {
+            await axios.delete(`${BACKEND_URL}/post/delete/${postId}`, { withCredentials: true });
+
+            set((state) => ({
+                posts: state.posts.filter(post => post._id !== postId)
             }))
 
         } catch (error) {
