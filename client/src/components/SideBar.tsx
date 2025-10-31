@@ -10,7 +10,7 @@ const SideBar = () => {
         <div className="h-full flex flex-col items-center justify-between text-white border border-zinc-800 p-5">
             <div className="absolute top-0 right-0 h-full w-0.5 bg-linear-to-b from-zinc-600 via-grass-900 to-zinc-950 rounded-full" />
 
-            <div className="flex flex-col gap-8">
+            <div className="flex flex-col items-center gap-8">
 
                 {/* Logo */}
                 <div className="flex items-center gap-3">

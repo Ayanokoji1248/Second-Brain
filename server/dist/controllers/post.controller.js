@@ -58,3 +58,35 @@ export const getAllUserPost = (req, res) => __awaiter(void 0, void 0, void 0, fu
         return;
     }
 });
+export const searchPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const userId = req.user.id;
+        const { q } = req.query;
+        if (!q || typeof q !== 'string' || q.trim() === "") {
+            res.status(400).json({
+                message: "Query required"
+            });
+            return;
+        }
+        const posts = yield Post.find({
+            user: userId,
+            $or: [
+                { title: { $regex: q, $options: "i" } },
+                { description: { $regex: q, $options: "i" } },
+                { tags: { $regex: q, $options: "i" } },
+                { type: { $regex: q, $options: "i" } },
+            ]
+        });
+        res.status(200).json({
+            message: "Posts feteched successfully",
+            posts
+        });
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({
+            message: "Internal Server Error"
+        });
+        return;
+    }
+});

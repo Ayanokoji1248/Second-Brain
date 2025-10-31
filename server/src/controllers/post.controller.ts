@@ -60,3 +60,39 @@ export const getAllUserPost = async (req: Request, res: Response) => {
         return
     }
 }
+
+export const searchPost = async (req: Request, res: Response) => {
+    try {
+        const userId = req.user.id
+        const { q } = req.query;
+
+        if (!q || typeof q !== 'string' || q.trim() === "") {
+            res.status(400).json({
+                message: "Query required"
+            })
+            return
+        }
+
+        const posts = await Post.find({
+            user: userId,
+            $or: [
+                { title: { $regex: q, $options: "i" } },
+                { description: { $regex: q, $options: "i" } },
+                { tags: { $regex: q, $options: "i" } },
+                { type: { $regex: q, $options: "i" } },
+            ]
+        })
+
+        res.status(200).json({
+            message: "Posts feteched successfully",
+            posts
+        })
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            message: "Internal Server Error"
+        })
+        return
+    }
+}
