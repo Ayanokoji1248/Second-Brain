@@ -8,6 +8,7 @@ import MainLayout from "./layout/MainLayout"
 import ProtectedRoute from "./components/ProtectedRoute"
 import VideoPage from "./pages/VideoPage"
 import TwitterPage from "./pages/TwitterPage"
+import NotFound from "./pages/NotFound"
 
 const App = () => {
 
@@ -29,6 +30,9 @@ const App = () => {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
       </Route>
+
+      <Route path="*" element={<NotFound />} />
+
     </Routes>
 
   )

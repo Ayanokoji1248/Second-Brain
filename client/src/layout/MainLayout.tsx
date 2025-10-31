@@ -12,11 +12,11 @@ const MainLayout = () => {
     }, [])
 
     return (
-        <div className="w-full h-screen flex bg-linear-to-br from-emerald-900 via-black to-grass-950" id="main">
-            <div className="w-[20%] h-screen sticky top-1">
+        <div className="w-full h-screen flex bg-linear-to-br from-emerald-950 via-black to-zinc-950" id="main">
+            <div className="w-fit h-screen sticky top-1">
                 <SideBar />
             </div>
-            <div className="w-[80%] h-full overflow-auto">
+            <div className="w-full h-full overflow-auto">
                 <Outlet />
             </div>
         </div>

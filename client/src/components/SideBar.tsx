@@ -1,80 +1,67 @@
-import { Brain, LayoutDashboard, Twitter, Youtube } from "lucide-react"
-import { NavLink } from "react-router-dom"
-import useAuthStore from "../store/auth.store"
+import { Brain, LayoutDashboard, Twitter, Youtube, LogOut } from "lucide-react";
+import { NavLink } from "react-router-dom";
+import useAuthStore from "../store/auth.store";
 
 const SideBar = () => {
-
     const { logout } = useAuthStore();
 
+    const navItems = [
+        { to: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
+        { to: "/videos", icon: Youtube, label: "Videos" },
+        { to: "/tweets", icon: Twitter, label: "Tweets" },
+    ];
+
     return (
-        <div className="h-full flex flex-col items-center justify-between text-white border border-zinc-800 p-5">
-            <div className="absolute top-0 right-0 h-full w-0.5 bg-linear-to-b from-zinc-600 via-grass-900 to-zinc-950 rounded-full" />
+        <aside className="relative flex flex-col justify-between items-center h-full w-20 md:w-64 bg-zinc-950/80 border-r border-zinc-800 p-4 md:p-5 transition-all duration-300">
 
-            <div className="flex flex-col items-center gap-8">
+            {/* Subtle gradient line on the right edge */}
+            <div className="absolute top-0 right-0 h-full w-px bg-linear-to-b from-zinc-600 via-green-900 to-zinc-950" />
 
+            {/* Logo & Navigation */}
+            <div className="flex flex-col items-center w-full gap-8">
                 {/* Logo */}
-                <div className="flex items-center gap-3">
-                    <div className="p-2 bg-green-900/90 rounded-xl">
-                        <Brain size={30} className="text-emerald-200" />
+                <div className="flex items-center justify-center md:justify-start gap-3">
+                    <div className="p-2 bg-green-900/80 rounded-xl shadow-inner">
+                        <Brain size={26} className="text-emerald-200" />
                     </div>
-                    <h1 className="text-3xl font-bold hidden lg:flex">Second Brain</h1>
+                    <h1 className="hidden md:block text-xl font-semibold text-emerald-100">
+                        Second Brain
+                    </h1>
                 </div>
 
-                <div className="mt-5 flex flex-col gap-3 justify-start py-3 w-full">
-                    <NavLink
-                        to="/dashboard"
-                        className={({ isActive }) =>
-                            `p-2 rounded-xl flex items-center gap-3 px-4 transition-all duration-300 
-       ${isActive
-                                ? "bg-green-900/30 backdrop-blur-md border border-green-800/40 shadow-md"
-                                : "hover:bg-green-900/20 hover:backdrop-blur-sm "}`
-                        }
-                    >
-                        <LayoutDashboard className="text-emerald-200" />
-                        <h1 className="text-xl font-medium hidden lg:flex text-emerald-200">
-                            Dashboard
-                        </h1>
-                    </NavLink>
-
-                    <NavLink
-                        to="/videos"
-                        className={({ isActive }) =>
-                            `p-2 rounded-xl flex items-center gap-3 px-4 transition-all duration-300 
-       ${isActive
-                                ? "bg-green-900/30 backdrop-blur-md border border-green-800/40 shadow-md"
-                                : "hover:bg-green-900/20 hover:backdrop-blur-sm "}`
-                        }
-                    >
-                        <Youtube className="text-emerald-200" />
-                        <h1 className="text-xl font-medium hidden lg:flex text-emerald-200">
-                            Videos
-                        </h1>
-                    </NavLink>
-
-                    <NavLink
-                        to="/tweets"
-                        className={({ isActive }) =>
-                            `p-2 rounded-xl flex items-center gap-3 px-4 transition-all duration-300 
-       ${isActive
-                                ? "bg-green-900/30 backdrop-blur-md border border-green-800/40 shadow-md"
-                                : "hover:bg-green-900/20 hover:backdrop-blur-sm "}`
-                        }
-                    >
-                        <Twitter className="text-emerald-200" />
-                        <h1 className="text-xl font-medium hidden lg:flex text-emerald-200">
-                            Tweets
-                        </h1>
-                    </NavLink>
-                </div>
-
+                {/* Navigation */}
+                <nav className="flex flex-col gap-3 w-full mt-5">
+                    {navItems.map(({ to, icon: Icon, label }) => (
+                        <NavLink
+                            key={to}
+                            to={to}
+                            className={({ isActive }) =>
+                                `flex items-center justify-center md:justify-start gap-3 px-2 md:px-4 py-2 rounded-lg transition-all duration-300 
+                 ${isActive
+                                    ? "bg-green-900/30 border border-green-800/40 backdrop-blur-md shadow-md"
+                                    : "hover:bg-green-900/20 hover:backdrop-blur-sm"
+                                }`
+                            }
+                        >
+                            <Icon size={22} className="text-emerald-200 shrink-0" />
+                            <span className="hidden md:flex text-emerald-100 font-medium text-lg">
+                                {label}
+                            </span>
+                        </NavLink>
+                    ))}
+                </nav>
             </div>
 
-            <div className="w-full p-3">
-                <button onClick={logout} className="w-full hover:bg-red-950/50 border border-zinc-900 p-2 text-base font-medium text-red-500 rounded-md transition-all duration-300 cursor-pointer">Logout</button>
-            </div>
+            {/* Logout Button */}
+            <button
+                onClick={logout}
+                className="w-full flex items-center justify-center md:justify-start gap-2 px-2 md:px-4 py-2 rounded-lg text-red-500 border border-red-900/40 hover:bg-red-950/40 transition-all duration-300 font-medium text-sm md:text-base"
+            >
+                <LogOut size={20} className="shrink-0" />
+                <span className="hidden md:inline">Logout</span>
+            </button>
+        </aside>
+    );
+};
 
-        </div>
-    )
-}
-
-export default SideBar
+export default SideBar;
